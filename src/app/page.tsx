@@ -1,24 +1,46 @@
-import EnhancedAudioPlayer from '@/components/EnhancedAudioPlayer'
+'use client'
+
+import Image from 'next/image';
 
 export default function Home() {
-  // URL de exemplo de uma rádio online (você pode alterar para qualquer stream válido)
-  const streamUrl = 'https://stream.radiojar.com/4ywdgup3bnzuv'
-  const stationName = 'Rádio Web'
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-lg">
-        <EnhancedAudioPlayer streamUrl={streamUrl} stationName={stationName} />
-        
-        <div className="mt-8 text-center text-gray-600 text-sm">
-          <p>🎵 Sua rádio online favorita</p>
-          <p className="mt-2">
-            <a href="/admin" className="text-blue-600 hover:text-blue-800 underline">
-              🎙️ Painel do DJ
-            </a>
-          </p>
+    <main className="min-h-screen bg-gradient-to-br from-black via-[#2d1407] to-[#a85b1a] flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-lg bg-[#1a0d0a]/80 rounded-xl shadow-lg p-8 flex flex-col items-center">
+        <div className="w-56 h-56 flex items-center justify-center mb-6 rounded-full border-4 border-[#a85b1a] shadow-lg bg-[#fff3e6]/10 overflow-hidden">
+          <Image
+            src="/images/logo.webp"
+            alt="Logo Rádio Gospel Vida"
+            width={208}
+            height={208}
+            className="object-cover rounded-full"
+            priority
+          />
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold text-[#ffe6b3] mb-2 text-center drop-shadow">Rádio Gospel Vida <span className="text-red-500">♥</span></h1>
+        <p className="text-[#ffe6b3] text-center mb-6">Bem-vindo à sua rádio gospel online!<br/> Louvor, adoração e palavra 24h no ar.</p>
+        {/* Player central */}
+        <div className="w-full flex flex-col items-center mb-6">
+          <audio controls className="w-full max-w-md rounded-lg shadow">
+            <source src="https://stream.radiojar.com/4ywdgup3bnzuv" type="audio/mpeg" />
+            Seu navegador não suporta o player de áudio.
+          </audio>
+          <span className="text-[#ffe6b3] mt-2">Clique no play para ouvir ao vivo</span>
+        </div>
+        {/* Destaque programação */}
+        <div className="bg-[#a85b1a]/80 rounded-lg p-4 w-full text-center mb-4">
+          <span className="text-[#ffe6b3] font-semibold">Próxima programação:</span>
+          <div className="text-[#fff3e6]">Louvor da Manhã - 09:00 às 12:00</div>
+        </div>
+        {/* Versículo do dia */}
+        <div className="bg-[#ffe6b3]/80 rounded-lg p-4 w-full text-center">
+          <span className="text-[#a85b1a] font-semibold">Versículo do dia:</span>
+          <div className="text-[#1a0d0a] italic">"O Senhor é o meu pastor, nada me faltará." (Salmo 23:1)</div>
         </div>
       </div>
+      {/* Rodapé */}
+      <footer className="mt-8 text-[#ffe6b3] text-center text-sm opacity-80">
+        © {new Date().getFullYear()} Rádio Gospel Vida. Todos os direitos reservados.
+      </footer>
     </main>
-  )
+  );
 } 
