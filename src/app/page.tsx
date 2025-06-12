@@ -34,7 +34,7 @@ export default function Home() {
         {/* Versículo do dia */}
         <div className="bg-[#ffe6b3]/80 rounded-lg p-4 w-full text-center">
           <span className="text-[#a85b1a] font-semibold">Versículo do dia:</span>
-          <div className="text-[#1a0d0a] italic">"O Senhor é o meu pastor, nada me faltará." (Salmo 23:1)</div>
+          <div className="text-[#1a0d0a] italic">&quot;O Senhor é o meu pastor, nada me faltará.&quot; (Salmo 23:1)</div>
         </div>
       </div>
       {/* Rodapé */}
