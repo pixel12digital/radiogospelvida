@@ -1,39 +1,83 @@
 'use client'
-import { useState } from 'react';
-
-// Mock de músicas para visualização inicial
-const mockMusics = [
-  {
-    id: 1,
-    title: 'Música Exemplo 1',
-    artist: 'Artista 1',
-    album: 'Álbum 1',
-    duration: 210,
-    file_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    is_active: true,
-  },
-  {
-    id: 2,
-    title: 'Música Exemplo 2',
-    artist: 'Artista 2',
-    album: 'Álbum 2',
-    duration: 185,
-    file_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-    is_active: true,
-  },
-];
+import { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
 
 export default function MusicasPage() {
-  const [musics, setMusics] = useState(mockMusics);
+  const [musics, setMusics] = useState<any[]>([]);
   const [search, setSearch] = useState('');
   const [selectedMusic, setSelectedMusic] = useState<any>(null);
   const [showUpload, setShowUpload] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileUrl, setFileUrl] = useState('');
+  const [title, setTitle] = useState('');
+  const [artist, setArtist] = useState('');
+  const [album, setAlbum] = useState('');
+  const [duration, setDuration] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  // Filtro de busca
+  useEffect(() => {
+    fetchMusics();
+  }, []);
+
+  async function fetchMusics() {
+    const { data } = await supabase.from('musics').select('*').order('title');
+    setMusics(data || []);
+  }
+
   const filteredMusics = musics.filter(m =>
     m.title.toLowerCase().includes(search.toLowerCase()) ||
     m.artist.toLowerCase().includes(search.toLowerCase())
   );
+
+  async function handleUpload() {
+    setError('');
+    setSuccess('');
+    if ((!file && !fileUrl) || !title || !artist || !duration) {
+      setError('Preencha todos os campos obrigatórios e forneça um arquivo ou URL.');
+      return;
+    }
+    setUploading(true);
+    let finalUrl = fileUrl;
+    // Se o arquivo foi selecionado, faz upload e usa o link do Storage
+    if (file) {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${title.replace(/\s/g, '_')}.${fileExt}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage.from('musicas').upload(fileName, file);
+      if (uploadError) {
+        setError('Erro ao enviar arquivo: ' + uploadError.message);
+        setUploading(false);
+        return;
+      }
+      const { data: publicUrl } = supabase.storage.from('musicas').getPublicUrl(fileName);
+      finalUrl = publicUrl.publicUrl;
+    }
+    // Cadastra na tabela musics
+    const { error: dbError } = await supabase.from('musics').insert({
+      title,
+      artist,
+      album,
+      duration: parseInt(duration),
+      file_url: finalUrl,
+      is_active: true,
+    });
+    if (dbError) {
+      setError('Erro ao salvar no banco: ' + dbError.message);
+      setUploading(false);
+      return;
+    }
+    setSuccess('Música cadastrada com sucesso!');
+    setFile(null);
+    setFileUrl('');
+    setTitle('');
+    setArtist('');
+    setAlbum('');
+    setDuration('');
+    setShowUpload(false);
+    setUploading(false);
+    fetchMusics();
+  }
 
   // Funções mock para ações
   const handleEdit = (music: any) => alert('Editar: ' + music.title);
@@ -62,13 +106,20 @@ export default function MusicasPage() {
         </div>
       </div>
 
-      {/* Área de upload (mock) */}
+      {/* Área de upload real */}
       {showUpload && (
         <div className="mb-6 bg-[#fff3e6] p-4 rounded-lg">
-          <p className="mb-2 font-semibold">Arraste e solte arquivos de música aqui ou clique para selecionar.</p>
-          <input type="file" accept="audio/*" className="mb-2" />
+          <p className="mb-2 font-semibold">Selecione o arquivo de música <b>ou</b> informe a URL direta do arquivo (Google Drive, Dropbox, etc):</p>
+          <input type="file" accept="audio/*" className="mb-2" onChange={e => setFile(e.target.files?.[0] || null)} />
+          <input value={fileUrl} onChange={e => setFileUrl(e.target.value)} placeholder="URL do arquivo (opcional)" className="mb-2 px-3 py-2 rounded w-full border border-[#c96a2b] text-[#1a0d0a]" />
+          <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Título" className="mb-2 px-3 py-2 rounded w-full border border-[#c96a2b] text-[#1a0d0a]" />
+          <input value={artist} onChange={e => setArtist(e.target.value)} placeholder="Artista" className="mb-2 px-3 py-2 rounded w-full border border-[#c96a2b] text-[#1a0d0a]" />
+          <input value={album} onChange={e => setAlbum(e.target.value)} placeholder="Álbum (opcional)" className="mb-2 px-3 py-2 rounded w-full border border-[#c96a2b] text-[#1a0d0a]" />
+          <input value={duration} onChange={e => setDuration(e.target.value)} placeholder="Duração (segundos)" type="number" min="1" className="mb-2 px-3 py-2 rounded w-full border border-[#c96a2b] text-[#1a0d0a]" />
+          {error && <div className="text-red-600 mb-2">{error}</div>}
+          {success && <div className="text-green-700 mb-2">{success}</div>}
           <div className="flex gap-2">
-            <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Enviar</button>
+            <button onClick={handleUpload} disabled={uploading} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-60">{uploading ? 'Enviando...' : 'Enviar'}</button>
             <button onClick={() => setShowUpload(false)} className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Cancelar</button>
           </div>
         </div>

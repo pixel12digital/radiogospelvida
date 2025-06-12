@@ -22,15 +22,10 @@ export default function Navbar() {
         </Link>
         {/* Menu desktop */}
         <nav className="hidden md:flex gap-6 font-semibold">
-          <Link href="/" className="hover:text-[#a85b1a] transition">Home</Link>
           <Link href="/programacao" className="hover:text-[#a85b1a] transition">Programação</Link>
           <Link href="/pedidos" className="hover:text-[#a85b1a] transition">Pedidos</Link>
           <Link href="/recados" className="hover:text-[#a85b1a] transition">Recados</Link>
-          <Link href="/historico" className="hover:text-[#a85b1a] transition">Histórico</Link>
-          <Link href="/equipe" className="hover:text-[#a85b1a] transition">Equipe</Link>
-          <Link href="/noticias" className="hover:text-[#a85b1a] transition">Notícias</Link>
-          <Link href="/patrocinadores" className="hover:text-[#a85b1a] transition">Patrocinadores</Link>
-          <Link href="/chat" className="hover:text-[#a85b1a] transition">Chat</Link>
+          <Link href="/login" className="hover:text-[#a85b1a] transition">Acessar</Link>
         </nav>
         {/* Botão menu mobile */}
         <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Abrir menu">
@@ -40,15 +35,10 @@ export default function Navbar() {
       {/* Menu mobile */}
       {open && (
         <nav className="md:hidden bg-[#1a0d0a] border-t border-[#a85b1a] flex flex-col gap-4 px-6 py-4 animate-fade-in-down">
-          <Link href="/" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Home</Link>
           <Link href="/programacao" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Programação</Link>
           <Link href="/pedidos" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Pedidos</Link>
           <Link href="/recados" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Recados</Link>
-          <Link href="/historico" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Histórico</Link>
-          <Link href="/equipe" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Equipe</Link>
-          <Link href="/noticias" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Notícias</Link>
-          <Link href="/patrocinadores" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Patrocinadores</Link>
-          <Link href="/chat" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Chat</Link>
+          <Link href="/login" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Acessar</Link>
         </nav>
       )}
     </header>
