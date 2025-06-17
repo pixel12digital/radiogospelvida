@@ -20,10 +20,13 @@ export default function Home() {
         <p className="text-[#ffe6b3] text-center mb-6">Bem-vindo à sua rádio gospel online!<br/> Louvor, adoração e palavra 24h no ar.</p>
         {/* Player central */}
         <div className="w-full flex flex-col items-center mb-6">
-          <audio controls className="w-full max-w-md rounded-lg shadow">
-            <source src="https://stream.radiojar.com/4ywdgup3bnzuv" type="audio/mpeg" />
-            Seu navegador não suporta o player de áudio.
-          </audio>
+          <iframe 
+            src="https://212.85.11.238:8443/public/gospelvida/embed?theme=light" 
+            frameBorder="0" 
+            allowTransparency={true} 
+            style={{ width: '100%', minHeight: '150px', border: 0 }}
+            title="Rádio Gospel Vida Player"
+          />
           <span className="text-[#ffe6b3] mt-2">Clique no play para ouvir ao vivo</span>
         </div>
         {/* Destaque programação */}
