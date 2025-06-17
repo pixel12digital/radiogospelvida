@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import Container from '../Container';
 
 const patrocinadores = [
@@ -15,7 +16,7 @@ export default function PatrocinadoresPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
         {patrocinadores.map((patro, idx) => (
           <div key={idx} className="bg-[#fff3e6] rounded-xl p-6 flex flex-col items-center shadow-lg">
-            <img src={patro.logo} alt={patro.nome} className="w-28 h-28 object-contain mb-2" />
+            <Image src={patro.logo} alt={patro.nome} width={112} height={112} className="object-contain mb-2" />
             <div className="font-bold text-[#a85b1a] text-lg">{patro.nome}</div>
           </div>
         ))}

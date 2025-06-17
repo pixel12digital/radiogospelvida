@@ -29,7 +29,7 @@ export default function AdminPedidosPage() {
               <li key={p.id} className="border-b border-[#ffe6b3] pb-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                 <div>
                   <span className="font-bold text-[#a85b1a]">{p.nome}</span> pediu <span className="font-semibold">{p.musica}</span>
-                  {p.mensagem && <span className="ml-2 text-[#c96a2b] italic">"{p.mensagem}"</span>}
+                  {p.mensagem && <span className="ml-2 text-[#c96a2b] italic">&ldquo;{p.mensagem}&rdquo;</span>}
                 </div>
                 <div className="flex gap-2">
                   {!p.atendido && <button onClick={() => marcarAtendido(p.id)} className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Atendido</button>}

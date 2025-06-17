@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import Container from '../Container';
 
 const equipe = [
@@ -16,7 +17,7 @@ export default function EquipePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
         {equipe.map((pessoa, idx) => (
           <div key={idx} className="bg-[#fff3e6] rounded-xl p-6 flex items-center gap-6 shadow-lg">
-            <img src={pessoa.foto} alt={pessoa.nome} className="w-24 h-24 rounded-full border-4 border-[#a85b1a] object-cover" />
+            <Image src={pessoa.foto} alt={pessoa.nome} width={96} height={96} className="rounded-full border-4 border-[#a85b1a] object-cover" />
             <div>
               <div className="font-bold text-[#a85b1a] text-xl">{pessoa.nome}</div>
               <div className="text-[#c96a2b]">{pessoa.funcao}</div>
