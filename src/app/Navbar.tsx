@@ -22,10 +22,7 @@ export default function Navbar() {
         </Link>
         {/* Menu desktop */}
         <nav className="hidden md:flex gap-6 font-semibold">
-          <Link href="/programacao" className="hover:text-[#a85b1a] transition">Programação</Link>
-          <Link href="/pedidos" className="hover:text-[#a85b1a] transition">Pedidos</Link>
-          <Link href="/recados" className="hover:text-[#a85b1a] transition">Recados</Link>
-          <Link href="/login" className="hover:text-[#a85b1a] transition">Acessar</Link>
+          {/* Nenhum item de menu */}
         </nav>
         {/* Botão menu mobile */}
         <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Abrir menu">
@@ -35,10 +32,7 @@ export default function Navbar() {
       {/* Menu mobile */}
       {open && (
         <nav className="md:hidden bg-[#1a0d0a] border-t border-[#a85b1a] flex flex-col gap-4 px-6 py-4 animate-fade-in-down">
-          <Link href="/programacao" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Programação</Link>
-          <Link href="/pedidos" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Pedidos</Link>
-          <Link href="/recados" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Recados</Link>
-          <Link href="/login" className="hover:text-[#a85b1a] transition" onClick={() => setOpen(false)}>Acessar</Link>
+          {/* Nenhum item de menu */}
         </nav>
       )}
     </header>

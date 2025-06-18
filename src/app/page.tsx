@@ -21,7 +21,7 @@ export default function Home() {
         {/* Player central */}
         <div className="w-full flex flex-col items-center mb-6">
           <iframe 
-            src="https://212.85.11.238:8443/public/gospelvida/embed?theme=light" 
+            src="https://painel.radioweb.app.br/public/gospel-vida/embed?theme=light" 
             frameBorder="0" 
             allowTransparency={true} 
             style={{ width: '100%', minHeight: '150px', border: 0 }}
@@ -32,7 +32,7 @@ export default function Home() {
         {/* Destaque programação */}
         <div className="bg-[#a85b1a]/80 rounded-lg p-4 w-full text-center mb-4">
           <span className="text-[#ffe6b3] font-semibold">Próxima programação:</span>
-          <div className="text-[#fff3e6]">Louvor da Manhã - 09:00 às 12:00</div>
+          <div className="text-[#fff3e6]">Fique ligado! Em breve, nova programação ao vivo na Rádio Gospel Vida.</div>
         </div>
         {/* Versículo do dia */}
         <div className="bg-[#ffe6b3]/80 rounded-lg p-4 w-full text-center">

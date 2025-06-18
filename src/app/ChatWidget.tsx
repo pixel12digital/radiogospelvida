@@ -8,6 +8,16 @@ function ChatModal({ open, onClose }: { open: boolean, onClose: () => void }) {
   const [enviado, setEnviado] = useState(false);
   const [resposta, setResposta] = useState('Olá! Em breve um administrador responderá sua mensagem.');
 
+  const whatsappNumber = '5511981089874';
+
+  function handleEnviar(e: React.FormEvent) {
+    e.preventDefault();
+    const texto = `Olá, meu nome é ${nome}. Mensagem: ${mensagem}`;
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+    setEnviado(true);
+  }
+
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/30">
@@ -15,7 +25,7 @@ function ChatModal({ open, onClose }: { open: boolean, onClose: () => void }) {
         <button onClick={onClose} className="absolute top-2 right-2 text-[#a85b1a] text-2xl font-bold">×</button>
         <h2 className="text-xl font-bold text-[#a85b1a] mb-4 text-center">Chat ao Vivo</h2>
         {!enviado ? (
-          <form onSubmit={e => { e.preventDefault(); setEnviado(true); }} className="flex flex-col gap-4">
+          <form onSubmit={handleEnviar} className="flex flex-col gap-4">
             <input
               value={nome}
               onChange={e => setNome(e.target.value)}
@@ -35,12 +45,9 @@ function ChatModal({ open, onClose }: { open: boolean, onClose: () => void }) {
         ) : (
           <div className="text-center">
             <div className="mb-4">
-              <span className="font-bold text-[#a85b1a]">Você:</span> <span className="text-[#c96a2b] italic">{mensagem}</span>
+              <span className="font-bold text-[#a85b1a]">Mensagem enviada pelo WhatsApp!</span>
             </div>
-            <div className="mb-2">
-              <span className="font-bold text-[#a85b1a]">Admin:</span> <span className="text-[#c96a2b] italic">{resposta}</span>
-            </div>
-            <button onClick={() => { setEnviado(false); setMensagem(''); }} className="mt-4 bg-[#a85b1a] text-white px-4 py-2 rounded font-semibold hover:bg-[#c96a2b]">Nova mensagem</button>
+            <button onClick={() => { setEnviado(false); setMensagem(''); setNome(''); }} className="mt-4 bg-[#a85b1a] text-white px-4 py-2 rounded font-semibold hover:bg-[#c96a2b]">Nova mensagem</button>
           </div>
         )}
       </div>
