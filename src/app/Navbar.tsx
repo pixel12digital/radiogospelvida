@@ -5,6 +5,19 @@ import { useState } from 'react';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+
+  function compartilhar() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Rádio Gospel Vida',
+        text: 'Ouça a melhor rádio gospel online!',
+        url: window.location.href,
+      });
+    } else {
+      alert('Compartilhamento não suportado neste navegador.');
+    }
+  }
+
   return (
     <header className="w-full bg-[#1a0d0a] text-[#ffe6b3] shadow-lg sticky top-0 z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
@@ -20,12 +33,26 @@ export default function Navbar() {
           </span>
           <span className="font-bold text-lg hidden sm:inline">Rádio Gospel Vida</span>
         </Link>
+        {/* Botão de compartilhamento */}
+        <button
+          className="ml-2 p-2 rounded-full hover:bg-[#a85b1a]/30 focus:outline-none focus:ring-2 focus:ring-[#a85b1a]"
+          onClick={compartilhar}
+          aria-label="Compartilhar rádio"
+        >
+          {/* Ícone de compartilhamento */}
+          <svg width="28" height="28" fill="none" stroke="#ffe6b3" strokeWidth="2" viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>
+          </svg>
+        </button>
         {/* Menu desktop */}
         <nav className="hidden md:flex gap-6 font-semibold">
           {/* Nenhum item de menu */}
         </nav>
         {/* Botão menu mobile */}
-        <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Abrir menu">
+        <button className="md:hidden ml-2" onClick={() => setOpen(!open)} aria-label="Abrir menu">
           <svg width="32" height="32" fill="none" stroke="#ffe6b3" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
