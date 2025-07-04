@@ -33,9 +33,9 @@ export default function Navbar() {
           </span>
           <span className="font-bold text-lg hidden sm:inline">Rádio Gospel Vida</span>
         </Link>
-        {/* Botão de compartilhamento */}
+        {/* Botão de compartilhamento com indicativo */}
         <button
-          className="ml-2 p-2 rounded-full hover:bg-[#a85b1a]/30 focus:outline-none focus:ring-2 focus:ring-[#a85b1a]"
+          className="ml-2 flex items-center gap-2 p-2 rounded-full hover:bg-[#a85b1a]/30 focus:outline-none focus:ring-2 focus:ring-[#a85b1a]"
           onClick={compartilhar}
           aria-label="Compartilhar rádio"
         >
@@ -46,6 +46,7 @@ export default function Navbar() {
             <circle cx="18" cy="19" r="3"/>
             <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>
           </svg>
+          <span className="font-semibold text-[#ffe6b3]">Compartilhe!</span>
         </button>
         {/* Menu desktop */}
         <nav className="hidden md:flex gap-6 font-semibold">
